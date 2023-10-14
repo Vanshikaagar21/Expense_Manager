@@ -1,4 +1,4 @@
-import { userModel } from "./../models/userModel";
+const userModel = require("../models/userModel");
 
 //LOGIN callback
 const loginController = async (req, res) => {
@@ -6,7 +6,7 @@ const loginController = async (req, res) => {
     const { email, password } = req.body;
     const user = await userModel.findOne({ email, password });
     if (!user) {
-      return res.status(404).send("User not found");
+      return res.status(404).send("User Not Found");
     }
     res.status(200).json({
       success: true,
@@ -37,4 +37,4 @@ const registerController = async (req, res) => {
   }
 };
 
-export default { loginController, registerController };
+module.exports = { loginController, registerController };

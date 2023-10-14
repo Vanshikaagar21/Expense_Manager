@@ -1,6 +1,8 @@
 const express = require("express");
-const { loginController, registerController } =
-  require("../controllers/userController").default;
+const {
+  loginController,
+  registerController,
+} = require("../controllers/userController");
 
 //router object
 const router = express.Router();
