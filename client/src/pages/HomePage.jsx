@@ -12,6 +12,7 @@ const HomePage = () => {
   const [allTransaction, setAllTransaction] = useState([]);
   const [frequency, setFrequency] = useState("7");
   const [selectedDate, setSelectedDate] = useState([]);
+  const [type, setType] = useState("all");
 
   //table data
   const columns = [
@@ -50,7 +51,7 @@ const HomePage = () => {
         setLoading(true);
         const res = await axios.post(
           "http://localhost:8080/api/v1/transactions/get-transaction",
-          { userid: user._id, frequency, selectedDate }
+          { userid: user._id, frequency, selectedDate, type }
         );
         setLoading(false);
         setAllTransaction(res.data);
@@ -62,7 +63,7 @@ const HomePage = () => {
       }
     };
     getAllTransaction();
-  }, [frequency, selectedDate]);
+  }, [frequency, selectedDate, type]);
 
   //form handling
   const handleSubmit = async (values) => {
@@ -102,6 +103,14 @@ const HomePage = () => {
               onChange={(values) => setSelectedDate(values)}
             />
           )}
+        </div>
+        <div>
+          <h6>Select Type</h6>
+          <Select value={type} onChange={(values) => setType(values)}>
+            <Select.Option value="all">All</Select.Option>
+            <Select.Option value="income">Income</Select.Option>
+            <Select.Option value="expense">Expense</Select.Option>
+          </Select>
         </div>
         <div>
           <button
