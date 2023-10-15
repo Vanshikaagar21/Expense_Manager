@@ -167,7 +167,7 @@ const HomePage = () => {
               <Select.Option value="gifts">Gifts</Select.Option>
               <Select.Option value="wallet">Wallet</Select.Option>
               <Select.Option value="general">General</Select.Option>
-              <Select.Option value="eating">Eating Out</Select.Option>
+              <Select.Option value="eating">Eating</Select.Option>
               <Select.Option value="shopping">Shopping</Select.Option>
               <Select.Option value="entertainment">Entertainment</Select.Option>
               <Select.Option value="fuel">Fuel</Select.Option>
