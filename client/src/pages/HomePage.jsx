@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { message, Form, Input, Modal, Select, Table, DatePicker } from "antd";
-import { UnorderedListOutlined, AreaChartOutlined } from "@ant-design/icons";
+import {
+  UnorderedListOutlined,
+  AreaChartOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import Layout from "../components/Layout/Layout";
 import axios from "axios";
 import Spinner from "./../components/Spinner";
@@ -16,6 +21,7 @@ const HomePage = () => {
   const [selectedDate, setSelectedDate] = useState([]);
   const [type, setType] = useState("all");
   const [viewData, setViewData] = useState("table");
+  const [editable, setEditable] = useState(null);
 
   //table data
   const columns = [
@@ -42,6 +48,17 @@ const HomePage = () => {
     },
     {
       title: "Actions",
+      render: (text, record) => (
+        <div>
+          <EditOutlined
+            onClick={() => {
+              setEditable(record);
+              setShowModal(true);
+            }}
+          />
+          <DeleteOutlined className="mx-2" />
+        </div>
+      ),
     },
   ];
 
@@ -73,16 +90,32 @@ const HomePage = () => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       setLoading(true);
-      await axios.post(
-        "http://localhost:8080/api/v1/transactions/add-transaction",
-        {
-          ...values,
-          userid: user._id,
-        }
-      );
-      setLoading(false);
-      message.success("Transaction Added Successfully");
+      if (editable) {
+        await axios.post(
+          "http://localhost:8080/api/v1/transactions/edit-transaction",
+          {
+            payload: {
+              ...values,
+              userId: user._id,
+            },
+            transactionId: editable._id,
+          }
+        );
+        setLoading(false);
+        message.success("Transaction Updated Successfully");
+      } else {
+        await axios.post(
+          "http://localhost:8080/api/v1/transactions/add-transaction",
+          {
+            ...values,
+            userid: user._id,
+          }
+        );
+        setLoading(false);
+        message.success("Transaction Added Successfully");
+      }
       setShowModal(false);
+      setEditable(null);
     } catch (error) {
       setLoading(false);
       message.error("Failed to add transaction");
@@ -146,12 +179,16 @@ const HomePage = () => {
         )}
       </div>
       <Modal
-        title="Add Transaction"
+        title={editable ? "Edit Transaction" : "Add Transaction"}
         open={showModal}
         onCancel={() => setShowModal(false)}
         footer={false}
       >
-        <Form layout="vertical" onFinish={handleSubmit}>
+        <Form
+          layout="vertical"
+          onFinish={handleSubmit}
+          initialValues={editable}
+        >
           <Form.Item label="Amount" name="amount">
             <Input type="number" />
           </Form.Item>
