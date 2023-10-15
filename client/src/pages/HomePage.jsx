@@ -1,12 +1,68 @@
-import React, { useState } from "react";
-import { message, Form, Input, Modal, Select } from "antd";
+import React, { useEffect, useState } from "react";
+import { message, Form, Input, Modal, Select, Table, DatePicker } from "antd";
 import Layout from "../components/Layout/Layout";
 import axios from "axios";
 import Spinner from "./../components/Spinner";
+import moment from "moment";
+const { RangePicker } = DatePicker;
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [allTransaction, setAllTransaction] = useState([]);
+  const [frequency, setFrequency] = useState("7");
+  const [selectedDate, setSelectedDate] = useState([]);
+
+  //table data
+  const columns = [
+    {
+      title: "Date",
+      dataIndex: "date",
+      render: (text) => <span>{moment(text).format("YYYY-MM-DD")}</span>,
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+    },
+    {
+      title: "Actions",
+    },
+  ];
+
+  //useEffect hook
+  useEffect(() => {
+    //get all transactions
+    const getAllTransaction = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem("user"));
+        setLoading(true);
+        const res = await axios.post(
+          "http://localhost:8080/api/v1/transactions/get-transaction",
+          { userid: user._id, frequency, selectedDate }
+        );
+        setLoading(false);
+        setAllTransaction(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        message.error("Failed to show transaction");
+      }
+    };
+    getAllTransaction();
+  }, [frequency, selectedDate]);
 
   //form handling
   const handleSubmit = async (values) => {
@@ -32,7 +88,21 @@ const HomePage = () => {
     <Layout>
       {loading && <Spinner />}
       <div className="filters">
-        <div>range filters</div>
+        <div>
+          <h6>Select Frequency</h6>
+          <Select value={frequency} onChange={(values) => setFrequency(values)}>
+            <Select.Option value="7">Last 1 WEEK</Select.Option>
+            <Select.Option value="30">Last 1 Month</Select.Option>
+            <Select.Option value="365">Last 1 Year</Select.Option>
+            <Select.Option value="custom">Custom</Select.Option>
+          </Select>
+          {frequency === "custom" && (
+            <RangePicker
+              value={selectedDate}
+              onChange={(values) => setSelectedDate(values)}
+            />
+          )}
+        </div>
         <div>
           <button
             className="btn btn-primary"
@@ -42,7 +112,9 @@ const HomePage = () => {
           </button>
         </div>
       </div>
-      <div className="content"></div>
+      <div className="content">
+        <Table columns={columns} dataSource={allTransaction} />
+      </div>
       <Modal
         title="Add Transaction"
         open={showModal}
