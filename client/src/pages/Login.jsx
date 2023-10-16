@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Spinner from "../components/Spinner";
 import "../styles/LoginPage.css";
+import Footer from "../components/Layout/Footer";
 
 const Login = () => {
   const img =
@@ -41,6 +42,9 @@ const Login = () => {
 
   return (
     <>
+      <div className="header-card">
+        <h1>Expense Manager</h1>
+      </div>
       <div className="login-page">
         {loading && <Spinner />}
         <div className="login-card">
@@ -64,6 +68,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

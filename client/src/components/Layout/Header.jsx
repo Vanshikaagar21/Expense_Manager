@@ -20,10 +20,13 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
+          <Link className="navbar-brand ms-4" to="/">
+            Expense Manager
+          </Link>
           <button
-            className="navbar-toggler"
+            className="navbar-toggler custom-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarTogglerDemo01"
@@ -33,17 +36,20 @@ const Header = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <Link className="navbar-brand" to="/">
-              Expense Manager
-            </Link>
-
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+          <div className="collapse navbar-collapse " id="navbarTogglerDemo01">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-4 me-4">
+              {loginUser && (
+                <li className="nav-item">
+                  <p className="nav-link welcome-text">
+                    Welcome, {loginUser.name}
+                  </p>
+                </li>
+              )}
               <li className="nav-item">
-                <p className="nav-link">{loginUser && loginUser.name}</p>
-              </li>
-              <li className="nav-item">
-                <button className="btn btn-primary" onClick={logoutHandler}>
+                <button
+                  className="btn btn-outline-primary"
+                  onClick={logoutHandler}
+                >
                   Logout
                 </button>
               </li>

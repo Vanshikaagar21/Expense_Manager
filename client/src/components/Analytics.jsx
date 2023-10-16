@@ -58,10 +58,10 @@ const Analytics = ({ allTransaction }) => {
             </div>
             <div className="card-body">
               <h5 className="text-success">
-                Income : {totalIncomeTransactions.length}
+                Income: {totalIncomeTransactions.length}
               </h5>
               <h5 className="text-danger">
-                Expense : {totalExpenseTransactions.length}
+                Expense: {totalExpenseTransactions.length}
               </h5>
               <div className="d-flex flex-column align-items-center">
                 <Progress
@@ -70,6 +70,8 @@ const Analytics = ({ allTransaction }) => {
                   className="mx-2"
                   percent={totalIncomePercent.toFixed(0)}
                 />
+              </div>
+              <div className="d-flex flex-column align-items-center mt-3">
                 <Progress
                   type="circle"
                   strokeColor={"red"}
@@ -86,15 +88,17 @@ const Analytics = ({ allTransaction }) => {
               Total Transaction Flow : {totalTurnover}
             </div>
             <div className="card-body">
-              <h5 className="text-success">Income : {totalIncomeTurnover}</h5>
-              <h5 className="text-danger">Expense : {totalExpenseTurnover}</h5>
-              <div>
+              <h5 className="text-success">Income: {totalIncomeTurnover}</h5>
+              <h5 className="text-danger">Expense: {totalExpenseTurnover}</h5>
+              <div className="d-flex flex-column align-items-center">
                 <Progress
                   type="circle"
                   strokeColor={"green"}
                   className="mx-2"
                   percent={totalIncomeTurnoverPercent.toFixed(0)}
                 />
+              </div>
+              <div className="d-flex flex-column align-items-center mt-3">
                 <Progress
                   type="circle"
                   strokeColor={"red"}
