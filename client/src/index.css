@@ -5,14 +5,7 @@
 }
 
 .content{
-  height: 100vh;
-}
-
-.register-page{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 90vh;
+  height: 100%;
 }
 
 .filters{
@@ -21,6 +14,7 @@
   justify-content: space-between;
   padding: 15px 20px;
   box-shadow: 0 0 3px gray;
+  margin-bottom: 10px;
 }
 
 .switch-icons{
@@ -40,4 +34,8 @@
 
 .inactive-icon{
   color: gray;
+}
+
+.filter-tab .ant-select-selector {
+  width: 150px !important;
 }

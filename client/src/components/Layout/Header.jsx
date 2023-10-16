@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { message } from "antd";
+import "../../styles/HeaderStyle.css";
 
 const Header = () => {
   const navigate = useNavigate();
