@@ -46,9 +46,9 @@ body {
 
 .register-image img {
   width: 100%;
-  height: auto;
+  height: 350px;
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
 }
 
 .register-form {

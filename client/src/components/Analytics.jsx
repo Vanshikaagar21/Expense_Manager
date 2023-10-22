@@ -64,20 +64,22 @@ const Analytics = ({ allTransaction }) => {
                 Expense: {totalExpenseTransactions.length}
               </h5>
               <div className="d-flex flex-column align-items-center">
-                <Progress
-                  type="circle"
-                  strokeColor={"green"}
-                  className="mx-2"
-                  percent={totalIncomePercent.toFixed(0)}
-                />
-              </div>
-              <div className="d-flex flex-column align-items-center mt-3">
-                <Progress
-                  type="circle"
-                  strokeColor={"red"}
-                  className="mx-2 mt-3"
-                  percent={totalExpensePercent.toFixed(0)}
-                />
+                <div className="d-flex flex-column align-items-center">
+                  <Progress
+                    type="circle"
+                    strokeColor={"green"}
+                    className="mx-2"
+                    percent={totalIncomePercent.toFixed(0)}
+                  />
+                </div>
+                <div className="d-flex flex-column align-items-center mt-3">
+                  <Progress
+                    type="circle"
+                    strokeColor={"red"}
+                    className="mx-2 mt-3"
+                    percent={totalExpensePercent.toFixed(0)}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -90,27 +92,27 @@ const Analytics = ({ allTransaction }) => {
             <div className="card-body">
               <h5 className="text-success">Income: {totalIncomeTurnover}</h5>
               <h5 className="text-danger">Expense: {totalExpenseTurnover}</h5>
-              <div className="d-flex flex-column align-items-center">
-                <Progress
-                  type="circle"
-                  strokeColor={"green"}
-                  className="mx-2"
-                  percent={totalIncomeTurnoverPercent.toFixed(0)}
-                />
-              </div>
-              <div className="d-flex flex-column align-items-center mt-3">
-                <Progress
-                  type="circle"
-                  strokeColor={"red"}
-                  className="mx-2 mt-3"
-                  percent={totalExpenseTurnoverPercent.toFixed(0)}
-                />
+              <div>
+                <div className="d-flex flex-column align-items-center">
+                  <Progress
+                    type="circle"
+                    strokeColor={"green"}
+                    className="mx-2"
+                    percent={totalIncomeTurnoverPercent.toFixed(0)}
+                  />
+                </div>
+                <div className="d-flex flex-column align-items-center mt-3">
+                  <Progress
+                    type="circle"
+                    strokeColor={"red"}
+                    className="mx-2"
+                    percent={totalExpenseTurnoverPercent.toFixed(0)}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="row mt-3">
         <div className="col-md-3">
           <h6 className="bg-dark p-2 text-light">Categorywise Income</h6>
           {categories.map((category) => {

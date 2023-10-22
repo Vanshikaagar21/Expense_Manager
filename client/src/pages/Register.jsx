@@ -14,7 +14,7 @@ const Register = () => {
   const submitHandler = async (values) => {
     try {
       setLoading(true);
-      await axios.post("http://localhost:8080/api/v1/users/register", values);
+      await axios.post("/api/v1/users/register", values);
       message.success("Registeration Successful");
       setLoading(false);
       navigate("/login");
@@ -41,7 +41,7 @@ const Register = () => {
         <div className="register-card">
           <div className="register-image">
             <img
-              src="https://images.unsplash.com/photo-1593538312308-d4c29d8dc7f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+              src="https://www.digitap.ai/assets/images/expense-page-graphic.svg"
               alt="register-img"
             />
           </div>

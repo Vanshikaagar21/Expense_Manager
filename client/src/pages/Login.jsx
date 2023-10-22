@@ -7,8 +7,7 @@ import "../styles/LoginPage.css";
 import Footer from "../components/Layout/Footer";
 
 const Login = () => {
-  const img =
-    "https://images.unsplash.com/photo-1593538312308-d4c29d8dc7f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80";
+  const img = "https://www.digitap.ai/assets/images/expense-page-graphic.svg";
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -16,10 +15,7 @@ const Login = () => {
   const submitHandler = async (values) => {
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        "http://localhost:8080/api/v1/users/login",
-        values
-      );
+      const { data } = await axios.post("/api/v1/users/login", values);
       setLoading(false);
       message.success("Login Successful");
       localStorage.setItem(
@@ -55,7 +51,7 @@ const Login = () => {
             <Form layout="vertical" onFinish={submitHandler}>
               <h1>Login Form</h1>
               <Form.Item label="Email" name="email">
-                <Input type="email" />
+                <Input type="email" required="true" />
               </Form.Item>
               <Form.Item label="Password" name="password">
                 <Input type="password" />
