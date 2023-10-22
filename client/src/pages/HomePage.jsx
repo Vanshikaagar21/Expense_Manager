@@ -74,13 +74,14 @@ const HomePage = () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
         setLoading(true);
-        const res = await axios.post(
-          "http://localhost:8080/api/v1/transactions/get-transaction",
-          { userid: user._id, frequency, selectedDate, type }
-        );
+        const res = await axios.post("/api/v1/transactions/get-transaction", {
+          userid: user._id,
+          frequency,
+          selectedDate,
+          type,
+        });
         setLoading(false);
         setAllTransaction(res.data);
-        console.log(res.data);
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -94,10 +95,9 @@ const HomePage = () => {
   const handleDelete = async (record) => {
     try {
       setLoading(true);
-      await axios.post(
-        "http://localhost:8080/api/v1/transactions/delete-transaction",
-        { transactionId: record._id }
-      );
+      await axios.post("/api/v1/transactions/delete-transaction", {
+        transactionId: record._id,
+      });
       setLoading(false);
       message.success("Transaction Deleted!");
     } catch (error) {
@@ -113,26 +113,20 @@ const HomePage = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       setLoading(true);
       if (editable) {
-        await axios.post(
-          "http://localhost:8080/api/v1/transactions/edit-transaction",
-          {
-            payload: {
-              ...values,
-              userId: user._id,
-            },
-            transactionId: editable._id,
-          }
-        );
+        await axios.post("/api/v1/transactions/edit-transaction", {
+          payload: {
+            ...values,
+            userId: user._id,
+          },
+          transactionId: editable._id,
+        });
         setLoading(false);
         message.success("Transaction Updated Successfully");
       } else {
-        await axios.post(
-          "http://localhost:8080/api/v1/transactions/add-transaction",
-          {
-            ...values,
-            userid: user._id,
-          }
-        );
+        await axios.post("/api/v1/transactions/add-transaction", {
+          ...values,
+          userid: user._id,
+        });
         setLoading(false);
         message.success("Transaction Added Successfully");
       }

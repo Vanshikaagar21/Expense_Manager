@@ -16,10 +16,7 @@ const Login = () => {
   const submitHandler = async (values) => {
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        "http://localhost:8080/api/v1/users/login",
-        values
-      );
+      const { data } = await axios.post("/api/v1/users/login", values);
       setLoading(false);
       message.success("Login Successful");
       localStorage.setItem(
@@ -55,7 +52,7 @@ const Login = () => {
             <Form layout="vertical" onFinish={submitHandler}>
               <h1>Login Form</h1>
               <Form.Item label="Email" name="email">
-                <Input type="email" />
+                <Input type="email" required="true" />
               </Form.Item>
               <Form.Item label="Password" name="password">
                 <Input type="password" />
